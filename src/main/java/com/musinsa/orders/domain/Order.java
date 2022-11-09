@@ -2,13 +2,10 @@ package com.musinsa.orders.domain;
 
 import java.util.Collections;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table(name = "orders")
@@ -19,14 +16,8 @@ public class Order {
   @Id
   private Long id;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(
-      name = "order_id",
-      nullable = false,
-      columnDefinition = "binary(16)",
-      foreignKey = @ForeignKey(name = "fk_order_line_item_to_orders")
-  )
-  private List<OrderLineItem> orderLineItems = List.of();
+  @Embedded
+  private OrderLineItems orderLineItems;
 
   protected Order() {
 
@@ -38,10 +29,10 @@ public class Order {
 
   public Order(Long id, List<OrderLineItem> orderLineItems) {
     this.id = id;
-    this.orderLineItems = orderLineItems;
+    this.orderLineItems = new OrderLineItems(orderLineItems);
   }
 
   public List<OrderLineItem> orderLineItems() {
-    return Collections.unmodifiableList(orderLineItems);
+    return Collections.unmodifiableList(orderLineItems.orderLineItems());
   }
 }
