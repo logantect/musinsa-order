@@ -1,10 +1,11 @@
 package com.musinsa.orders.domain;
 
+import static com.musinsa.orders.Fixtures.createOrder;
+import static com.musinsa.orders.Fixtures.createOrderLineItem;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 import java.util.List;
-import java.util.Random;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,15 +13,12 @@ class OrderTest {
 
   @Test
   @DisplayName("주문생성")
-  void createOrder() {
-    Order actual = new Order(
-        1L,
-        List.of(
-            new OrderLineItem(new Random().nextLong(), 1L, "신발A", 15_000L),
-            new OrderLineItem(new Random().nextLong(), 2L, "신발B", 16_000L),
-            new OrderLineItem(new Random().nextLong(), 3L, "신발C", 17_000L)
-        )
-    );
+  void placeOrder() {
+    Order actual = createOrder(1L, List.of(
+        createOrderLineItem(1L, "신발A", 15_000L),
+        createOrderLineItem(2L, "신발B", 16_000L),
+        createOrderLineItem(3L, "신발C", 17_000L)
+    ));
 
     assertThat(actual).isNotNull();
     assertThat(actual.orderLineItems()).hasSize(3);
@@ -31,4 +29,5 @@ class OrderTest {
             tuple(3L, "신발C", 17_000L)
         );
   }
+
 }
