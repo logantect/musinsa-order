@@ -17,7 +17,8 @@ public class OrderLineItem {
 
   private Long productId;
 
-  private String name;
+  @Embedded
+  private ProductName name;
 
   @Embedded
   private Price price;
@@ -33,7 +34,7 @@ public class OrderLineItem {
   public OrderLineItem(Long id, Long productId, String name, Long price) {
     this.id = id;
     this.productId = productId;
-    this.name = name;
+    this.name = ProductName.from(name);
     this.price = Price.from(price);
   }
 
