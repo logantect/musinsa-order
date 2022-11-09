@@ -1,5 +1,6 @@
 package com.musinsa.orders.domain;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,8 @@ public class OrderLineItem {
 
   private String name;
 
-  private Long price;
+  @Embedded
+  private Price price;
 
   protected OrderLineItem() {
 
@@ -32,7 +34,7 @@ public class OrderLineItem {
     this.id = id;
     this.productId = productId;
     this.name = name;
-    this.price = price;
+    this.price = Price.from(price);
   }
 
 }
