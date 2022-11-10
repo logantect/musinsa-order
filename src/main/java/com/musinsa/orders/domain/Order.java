@@ -35,4 +35,8 @@ public class Order {
   public List<OrderLineItem> orderLineItems() {
     return Collections.unmodifiableList(orderLineItems.orderLineItems());
   }
+
+  public Money calculateTotalAmount() {
+    return orderLineItems.calculateTotalAmount();
+  }
 }
