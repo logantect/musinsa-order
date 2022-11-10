@@ -1,5 +1,8 @@
 package com.musinsa.orders.domain;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +24,8 @@ public class OrderLineItem {
   private ProductName name;
 
   @Embedded
-  private Price price;
+  @AttributeOverride(name = "amount", column = @Column(name = "price", nullable = false))
+  private Money price;
 
   protected OrderLineItem() {
 
@@ -35,7 +39,7 @@ public class OrderLineItem {
     this.id = id;
     this.productId = productId;
     this.name = ProductName.from(name);
-    this.price = Price.from(price);
+    this.price = Money.from(price);
   }
 
 }
