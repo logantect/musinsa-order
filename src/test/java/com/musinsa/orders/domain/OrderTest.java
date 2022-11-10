@@ -24,9 +24,9 @@ class OrderTest {
     assertThat(actual.orderLineItems()).hasSize(3);
     assertThat(actual.orderLineItems()).extracting("productId", "name", "price")
         .contains(
-            tuple(1L, ProductName.from("신발A"), Price.from(15_000L)),
-            tuple(2L, ProductName.from("신발B"), Price.from(16_000L)),
-            tuple(3L, ProductName.from("신발C"), Price.from(17_000L))
+            tuple(1L, ProductName.from("신발A"), Money.from(15_000L)),
+            tuple(2L, ProductName.from("신발B"), Money.from(16_000L)),
+            tuple(3L, ProductName.from("신발C"), Money.from(17_000L))
         );
   }
 

@@ -8,21 +8,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class PriceTest {
+class MoneyTest {
 
   @ParameterizedTest
   @DisplayName("가격을 생성할 수 있다.")
   @ValueSource(longs = {0, 19_000L})
   void createPrice(long value) {
-    Price actual = Price.from(value);
-    assertThat(actual).isEqualTo(Price.from(value));
+    Money actual = Money.from(value);
+    assertThat(actual).isEqualTo(Money.from(value));
   }
 
   @Test
   @DisplayName("가격은 0원 이상이어야 한다.")
   void createPrice_IllegalArgumentException() {
     assertThatIllegalArgumentException()
-        .isThrownBy(() -> Price.from(-1));
+        .isThrownBy(() -> Money.from(-1));
   }
 
 }

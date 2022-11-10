@@ -8,16 +8,15 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class Price {
+public class Money {
 
-  @Column(name = "price", nullable = false)
   private long amount;
 
-  public static Price from(long amount) {
-    return new Price(amount);
+  public static Money from(long amount) {
+    return new Money(amount);
   }
 
-  private Price(long amount) {
+  private Money(long amount) {
     if (amount < 0) {
       throw new IllegalArgumentException();
     }
@@ -32,7 +31,7 @@ public class Price {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Price price = (Price) o;
+    Money price = (Money) o;
     return Objects.equals(amount, price.amount);
   }
 
