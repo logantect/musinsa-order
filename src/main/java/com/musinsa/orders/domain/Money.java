@@ -1,7 +1,6 @@
 package com.musinsa.orders.domain;
 
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,10 @@ public class Money {
       throw new IllegalArgumentException();
     }
     this.amount = amount;
+  }
+
+  public Money plus(Money amount) {
+    return new Money(this.amount + amount.amount);
   }
 
   @Override
