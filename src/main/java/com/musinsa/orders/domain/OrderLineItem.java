@@ -42,4 +42,7 @@ public class OrderLineItem {
     this.price = Money.from(price);
   }
 
+  public Money price() {
+    return price;
+  }
 }

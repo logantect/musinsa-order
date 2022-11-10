@@ -30,6 +30,12 @@ public class OrderLineItems {
     this.orderLineItems = orderLineItems;
   }
 
+  public Money calculateTotalAmount() {
+    return orderLineItems.stream()
+        .map(OrderLineItem::price)
+        .reduce(Money.ZERO, Money::plus);
+  }
+
   public List<OrderLineItem> orderLineItems() {
     return Collections.unmodifiableList(orderLineItems);
   }

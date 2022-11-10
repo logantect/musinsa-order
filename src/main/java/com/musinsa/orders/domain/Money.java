@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Money {
 
+  public static final Money ZERO = Money.from(0);
+
   private long amount;
 
   public static Money from(long amount) {
@@ -24,6 +26,10 @@ public class Money {
 
   public Money plus(Money amount) {
     return new Money(this.amount + amount.amount);
+  }
+
+  public boolean isGreaterThanOrEqual(Money other) {
+    return amount >= other.amount;
   }
 
   @Override
