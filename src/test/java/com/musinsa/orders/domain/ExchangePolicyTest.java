@@ -34,4 +34,17 @@ class ExchangePolicyTest {
     assertThat(actual).isEqualTo(Money.from(5_000L));
   }
 
+  @Test
+  @DisplayName("주문 상품이 존재하지 않으면 반품비를 계산할 수 없다")
+  void calculateReturnShippingFee_NotExistLineItem() {
+    Order order = createOrder(1L, List.of(
+        createOrderLineItem(1L, 1L, "신발A", 15_000L),
+        createOrderLineItem(2L, 2L, "신발B", 16_000L),
+        createOrderLineItem(3L, 3L, "신발C", 17_000L)
+    ));
+
+    assertThatIllegalArgumentException()
+        .isThrownBy(() -> exchangePolicy.calculateReturnShippingFee(order, List.of(4L)));
+  }
+
 }
