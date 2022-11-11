@@ -5,7 +5,11 @@ import static com.musinsa.orders.Fixtures.createOrderLineItem;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-import com.musinsa.orders.infra.AmountShippingFeePolicy;
+import com.musinsa.orders.domain.order.Money;
+import com.musinsa.orders.domain.order.Order;
+import com.musinsa.orders.domain.order.ProductName;
+import com.musinsa.orders.domain.order.ShippingFeePolicy;
+import com.musinsa.orders.infra.order.AmountShippingFeePolicy;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

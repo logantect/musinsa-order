@@ -1,8 +1,8 @@
-package com.musinsa.orders.infra;
+package com.musinsa.orders.infra.order;
 
-import com.musinsa.orders.domain.Money;
-import com.musinsa.orders.domain.Order;
-import com.musinsa.orders.domain.ShippingFeePolicy;
+import com.musinsa.orders.domain.order.Money;
+import com.musinsa.orders.domain.order.Order;
+import com.musinsa.orders.domain.order.ShippingFeePolicy;
 import org.springframework.stereotype.Component;
 
 @Component
