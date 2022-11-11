@@ -4,10 +4,9 @@ import static com.musinsa.orders.Fixtures.createOrder;
 import static com.musinsa.orders.Fixtures.createOrderLineItem;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.junit.jupiter.api.Assertions.*;
 
+import com.musinsa.orders.domain.exchange.ExchangePolicy;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
