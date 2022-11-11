@@ -49,4 +49,8 @@ public class Order {
   public Money shippingFee() {
     return shippingFee;
   }
+
+  public List<OrderLineItem> getOrderLineItems(List<Long> orderLineItemIds) {
+    return orderLineItems.getOrderLineItems(orderLineItemIds);
+  }
 }

@@ -38,7 +38,10 @@ public class Fixtures {
     );
   }
 
-  public static OrderLineItem createOrderLineItem(long productId, String name, long price) {
-    return new OrderLineItem(new Random().nextLong(), productId, name, price);
+  public static OrderLineItem createOrderLineItem(Long productId, String name, Long price) {
+    return createOrderLineItem(new Random().nextLong(), productId, name, price);
+  }
+  public static OrderLineItem createOrderLineItem(Long id, Long productId, String name, Long price) {
+    return new OrderLineItem(id, productId, name, price);
   }
 }
