@@ -1,9 +1,9 @@
 package com.musinsa.orders;
 
-import com.musinsa.orders.domain.Order;
-import com.musinsa.orders.domain.OrderLineItem;
-import com.musinsa.orders.domain.ShippingFeePolicy;
-import com.musinsa.orders.infra.AmountShippingFeePolicy;
+import com.musinsa.orders.domain.order.Order;
+import com.musinsa.orders.domain.order.OrderLineItem;
+import com.musinsa.orders.domain.order.ShippingFeePolicy;
+import com.musinsa.orders.infra.order.AmountShippingFeePolicy;
 import java.util.List;
 import java.util.Random;
 

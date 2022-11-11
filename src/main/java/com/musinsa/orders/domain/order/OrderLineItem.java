@@ -1,6 +1,5 @@
-package com.musinsa.orders.domain;
+package com.musinsa.orders.domain.order;
 
-import java.util.Objects;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
