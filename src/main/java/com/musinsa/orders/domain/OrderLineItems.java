@@ -2,6 +2,7 @@ package com.musinsa.orders.domain;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ForeignKey;
@@ -39,4 +40,11 @@ public class OrderLineItems {
   public List<OrderLineItem> orderLineItems() {
     return Collections.unmodifiableList(orderLineItems);
   }
+
+  public List<OrderLineItem> getOrderLineItems(List<Long> orderLineItemIds) {
+    return orderLineItems.stream()
+        .filter(orderLineItem -> orderLineItemIds.contains(orderLineItem.id()))
+        .collect(Collectors.toList());
+  }
+
 }

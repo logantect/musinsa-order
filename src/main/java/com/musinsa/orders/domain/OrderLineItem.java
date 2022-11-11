@@ -1,5 +1,6 @@
 package com.musinsa.orders.domain;
 
+import java.util.Objects;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -43,5 +44,9 @@ public class OrderLineItem {
 
   public Money price() {
     return price;
+  }
+
+  public Long id() {
+    return id;
   }
 }
