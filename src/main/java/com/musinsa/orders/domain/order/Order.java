@@ -53,6 +53,10 @@ public class Order {
   }
 
   public List<OrderLineItem> getOrderLineItems(List<Long> orderLineItemIds) {
-    return orderLineItems.getOrderLineItems(orderLineItemIds);
+    return Collections.unmodifiableList(orderLineItems.getOrderLineItems(orderLineItemIds));
+  }
+
+  public boolean isFreeShippingFee() {
+    return shippingFee.equals(Money.ZERO);
   }
 }

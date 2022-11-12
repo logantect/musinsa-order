@@ -1,4 +1,4 @@
-package com.musinsa.orders.domain.order;
+package com.musinsa.orders.domain.refund;
 
 import static com.musinsa.orders.Fixtures.createOrder;
 import static com.musinsa.orders.Fixtures.createOrderLineItem;
@@ -22,15 +22,28 @@ class RefundPolicyTest {
   }
 
   @Test
-  @DisplayName("유료 배송비 정책 주문 건 주문 상품 부분 환불시 반품비 2500원을 반환한다")
+  @DisplayName("유료 배송비 정책 주문 부분 환불시 반품비 2500원을 반환한다")
   void calculateReturnShippingFee() {
     Order order = createOrder(1L, List.of(
-        createOrderLineItem(1L, 1L, "셔츠A", 40_000L),
-        createOrderLineItem(2L, 2L, "셔츠B", 50_000L),
-        createOrderLineItem(3L, 3L, "셔츠C", 60_000L)
+        createOrderLineItem(1L, 1L, "신발A", 15_000L),
+        createOrderLineItem(2L, 2L, "신발B", 16_000L),
+        createOrderLineItem(3L, 3L, "신발C", 17_000L)
     ));
 
     Money actual = refundPolicy.calculateReturnShippingFee(order, List.of(2L));
+    assertThat(actual).isEqualTo(Money.from(2_500L));
+  }
+
+  @Test
+  @DisplayName("유료 배송비 정책 주문 전체 환불시 반품비 2500원을 반환한다")
+  void calculateReturnShippingFee_FullRefund() {
+    Order order = createOrder(1L, List.of(
+        createOrderLineItem(1L, 1L, "신발A", 15_000L),
+        createOrderLineItem(2L, 2L, "신발B", 16_000L),
+        createOrderLineItem(3L, 3L, "신발C", 17_000L)
+    ));
+
+    Money actual = refundPolicy.calculateReturnShippingFee(order, List.of(1L, 2L, 3L));
     assertThat(actual).isEqualTo(Money.from(2_500L));
   }
 }

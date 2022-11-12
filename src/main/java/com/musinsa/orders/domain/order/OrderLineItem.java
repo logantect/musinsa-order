@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(of = "id")
 @Table(name = "order_line_item")
 @Entity
 public class OrderLineItem {
