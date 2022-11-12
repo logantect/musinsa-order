@@ -1,4 +1,4 @@
-package com.musinsa.orders.domain;
+package com.musinsa.orders.domain.order;
 
 import static com.musinsa.orders.Fixtures.createOrder;
 import static com.musinsa.orders.Fixtures.createOrderLineItem;
