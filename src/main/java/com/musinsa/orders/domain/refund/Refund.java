@@ -1,6 +1,7 @@
 package com.musinsa.orders.domain.refund;
 
 import com.musinsa.orders.domain.order.Money;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.AttributeOverride;
@@ -107,6 +108,6 @@ public class Refund {
   }
 
   public List<RefundLineItem> refundLineItems() {
-    return refundLineItems;
+    return Collections.unmodifiableList(refundLineItems);
   }
 }

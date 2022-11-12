@@ -40,6 +40,10 @@ public class Order {
     this.shippingFee = shippingFeePolicy.calculateShippingFee(this);
   }
 
+  public Long id() {
+    return id;
+  }
+
   public List<OrderLineItem> orderLineItems() {
     return Collections.unmodifiableList(orderLineItems.orderLineItems());
   }
