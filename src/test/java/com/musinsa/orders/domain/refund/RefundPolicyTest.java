@@ -62,4 +62,17 @@ class RefundPolicyTest {
     Money actual = refundPolicy.calculateReturnShippingFee(order, List.of(2L));
     assertThat(actual).isEqualTo(Money.from(2_500L));
   }
+
+  @Test
+  @DisplayName("무료 배송비 정책 주문 부분 환불시 반품비 5000원을 반환한다")
+  void calculateReturnShippingFee_FreeShippingFeeFullRefund() {
+    Order order = createOrder(1L, List.of(
+        createOrderLineItem(1L, 1L, "셔츠A", 40_000L),
+        createOrderLineItem(2L, 2L, "셔츠B", 50_000L),
+        createOrderLineItem(3L, 3L, "셔츠C", 60_000L)
+    ));
+
+    Money actual = refundPolicy.calculateReturnShippingFee(order, List.of(1L, 2L, 3L));
+    assertThat(actual).isEqualTo(Money.from(5_000L));
+  }
 }
