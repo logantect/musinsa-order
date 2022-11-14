@@ -1,5 +1,7 @@
 package com.musinsa.orders.domain.exchange;
 
+import static com.musinsa.orders.domain.order.ShippingFeePolicy.ROUND_TRIP_SHIPPING_FEE;
+
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
 import com.musinsa.orders.domain.order.OrderLineItem;
@@ -7,11 +9,9 @@ import java.util.List;
 
 public class ExchangePolicy {
 
-  private static final Money RETURN_SHIPPING_FEE = Money.from(5_000L);
-
   public Money calculateReturnShippingFee(Order order, List<Long> returnLineItemIds) {
     validateNotExist(order, returnLineItemIds);
-    return RETURN_SHIPPING_FEE;
+    return ROUND_TRIP_SHIPPING_FEE;
   }
 
   private void validateNotExist(Order order, List<Long> returnLineItemIds) {
