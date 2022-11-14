@@ -1,8 +1,11 @@
 package com.musinsa.orders.domain.refund;
 
+import static com.musinsa.orders.domain.order.ShippingFeePolicy.ROUND_TRIP_SHIPPING_FEE;
+
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
 import com.musinsa.orders.domain.order.OrderLineItem;
+import com.musinsa.orders.domain.order.ShippingFeePolicy;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -22,9 +25,9 @@ public class RefundPolicy {
         concat(getRefundedLineItemIds(order.id()), returnLineItemIds));
 
     if (freeShippingFee && fullRefund) {
-      return Money.from(5_000L);
+      return ROUND_TRIP_SHIPPING_FEE;
     }
-    return Money.from(2_500L);
+    return ShippingFeePolicy.SHIPPING_FEE;
   }
 
   private boolean isFullRefund(Order order, List<Long> returnLineItemIds) {
