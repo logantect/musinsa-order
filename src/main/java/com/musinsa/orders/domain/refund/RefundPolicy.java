@@ -4,15 +4,12 @@ import static com.musinsa.orders.domain.order.ShippingFeePolicy.ROUND_TRIP_SHIPP
 
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
-import com.musinsa.orders.domain.order.OrderLineItem;
 import com.musinsa.orders.domain.order.ShippingFeePolicy;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.CollectionUtils;
 
 @RequiredArgsConstructor
 public class RefundPolicy {
