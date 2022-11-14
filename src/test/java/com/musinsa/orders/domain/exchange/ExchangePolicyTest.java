@@ -25,6 +25,7 @@ class ExchangePolicyTest {
   @Nested
   @DisplayName("주문 상품")
   class OrderLineItem {
+
     @Test
     @DisplayName("이 존재하지 않으면 반품비를 계산할 수 없다")
     void calculateReturnShippingFee_NotExistLineItem() {
@@ -69,6 +70,37 @@ class ExchangePolicyTest {
       assertThat(actual).isEqualTo(Money.from(5_000L));
     }
 
+  }
+
+  @Nested
+  @DisplayName("무료 배송비 정책 주문")
+  class FreeShippingFee {
+
+    @Test
+    @DisplayName("부분 교환시 반품비 5000원을 반환한다")
+    void calculateReturnShippingFee() {
+      Order order = createOrder(1L, List.of(
+          createOrderLineItem(1L, 1L, "셔츠A", 40_000L),
+          createOrderLineItem(2L, 2L, "셔츠B", 50_000L),
+          createOrderLineItem(3L, 3L, "셔츠C", 60_000L)
+      ));
+
+      Money actual = exchangePolicy.calculateReturnShippingFee(order, List.of(1L));
+      assertThat(actual).isEqualTo(Money.from(5_000L));
+    }
+
+    @Test
+    @DisplayName("전체 교환시 반품비 5000원을 반환한다")
+    void calculateReturnShippingFee_Full() {
+      Order order = createOrder(1L, List.of(
+          createOrderLineItem(1L, 1L, "셔츠A", 40_000L),
+          createOrderLineItem(2L, 2L, "셔츠B", 50_000L),
+          createOrderLineItem(3L, 3L, "셔츠C", 60_000L)
+      ));
+
+      Money actual = exchangePolicy.calculateReturnShippingFee(order, List.of(1L, 2L, 3L));
+      assertThat(actual).isEqualTo(Money.from(5_000L));
+    }
   }
 
 }
