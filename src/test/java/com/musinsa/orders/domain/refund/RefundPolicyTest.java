@@ -2,11 +2,14 @@ package com.musinsa.orders.domain.refund;
 
 import static com.musinsa.orders.Fixtures.createOrder;
 import static com.musinsa.orders.Fixtures.createOrderLineItem;
+import static com.musinsa.orders.Fixtures.refund;
+import static com.musinsa.orders.Fixtures.refundLineItem;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
 import com.musinsa.orders.domain.refund.RefundPolicy;
+import com.musinsa.orders.domain.refund.RefundReason.RefundReasonType;
 import com.musinsa.orders.infra.refund.InMemoryRefundRepository;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,6 +86,29 @@ class RefundPolicyTest {
       ));
 
       Money actual = refundPolicy.calculateReturnShippingFee(order, List.of(1L, 2L, 3L));
+      assertThat(actual).isEqualTo(Money.from(5_000L));
+    }
+
+    @Test
+    @DisplayName("부분 환불 후 전체 환불시 반품비 5000원을 반환한다")
+    void calculateReturnShippingFee_twiceFullReturn() {
+      Order order = createOrder(1L, List.of(
+          createOrderLineItem(1L, 1L, "셔츠A", 40_000L),
+          createOrderLineItem(2L, 2L, "셔츠B", 50_000L),
+          createOrderLineItem(3L, 3L, "셔츠C", 60_000L)
+      ));
+
+      refundRepository.save(
+          refund(
+              1L,
+              1L,
+              new RefundReason(RefundReasonType.CHANGE_OF_MIND, "상품 색상이 마음에 안들어요"),
+              Money.from(5_000L),
+              List.of(refundLineItem(1L))
+          )
+      );
+
+      Money actual = refundPolicy.calculateReturnShippingFee(order, List.of(2L, 3L));
       assertThat(actual).isEqualTo(Money.from(5_000L));
     }
   }
