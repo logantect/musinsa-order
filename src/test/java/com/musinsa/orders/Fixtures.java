@@ -1,5 +1,8 @@
 package com.musinsa.orders;
 
+import com.musinsa.orders.domain.exchange.Exchange;
+import com.musinsa.orders.domain.exchange.ExchangeLineItem;
+import com.musinsa.orders.domain.exchange.ExchangeReason;
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
 import com.musinsa.orders.domain.order.OrderLineItem;
@@ -68,5 +71,25 @@ public class Fixtures {
 
   public static RefundLineItem refundLineItem(Long orderLineItemId) {
     return new RefundLineItem(orderLineItemId);
+  }
+
+  public static Exchange exchange(
+      Long id,
+      Long orderId,
+      ExchangeReason reason,
+      Money returnShippingFee,
+      List<ExchangeLineItem> exchangeLineItem
+  ) {
+    return new Exchange(
+        id,
+        orderId,
+        reason,
+        returnShippingFee,
+        exchangeLineItem
+    );
+  }
+
+  public static ExchangeLineItem exchangeLineItem(Long orderLineItemId) {
+    return new ExchangeLineItem(orderLineItemId);
   }
 }
