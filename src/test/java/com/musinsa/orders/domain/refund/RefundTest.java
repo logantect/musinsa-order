@@ -1,5 +1,7 @@
 package com.musinsa.orders.domain.refund;
 
+import static com.musinsa.orders.Fixtures.refund;
+import static com.musinsa.orders.Fixtures.refundLineItem;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.musinsa.orders.domain.order.Money;
@@ -14,12 +16,12 @@ class RefundTest {
   @Test
   @DisplayName("1개 이상의 주문 상품으로 환불을 생성할 수 있다")
   void createRefund() {
-    Refund actual = new Refund(
+    Refund actual = refund(
         1L,
         1L,
         new RefundReason(RefundReasonType.CHANGE_OF_MIND, "상품 색상이 마음에 안들어요"),
         Money.from(5_000L),
-        List.of(new RefundLineItem(1L), new RefundLineItem(2L))
+        List.of(refundLineItem(1L), refundLineItem(2L))
     );
 
     assertThat(actual).isNotNull();
@@ -33,4 +35,5 @@ class RefundTest {
     assertThat(actual.refundLineItems()).extracting("orderLineItemId")
         .contains(1L, 2L);
   }
+
 }
