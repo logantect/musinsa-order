@@ -28,6 +28,10 @@ public class Money {
     return new Money(this.amount + amount.amount);
   }
 
+  public Money times(final long value) {
+    return new Money(this.amount * value);
+  }
+
   public boolean isGreaterThanOrEqual(Money other) {
     return amount >= other.amount;
   }
