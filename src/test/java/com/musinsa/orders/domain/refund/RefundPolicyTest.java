@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
-import com.musinsa.orders.domain.refund.RefundPolicy;
 import com.musinsa.orders.domain.refund.RefundReason.RefundReasonType;
 import com.musinsa.orders.infra.refund.InMemoryRefundRepository;
 import java.util.List;

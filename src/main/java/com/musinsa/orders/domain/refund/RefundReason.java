@@ -3,7 +3,6 @@ package com.musinsa.orders.domain.refund;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
@@ -38,7 +37,7 @@ public class RefundReason {
 
   public RefundReason(RefundReasonType reason, String detailedReason) {
     if (Objects.isNull(reason)) {
-        throw new IllegalArgumentException("Reason does not allow null");
+      throw new IllegalArgumentException("Reason does not allow null");
     }
     this.reason = reason;
     this.detailedReason = detailedReason;

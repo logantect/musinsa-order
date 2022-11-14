@@ -3,10 +3,10 @@ package com.musinsa.orders;
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
 import com.musinsa.orders.domain.order.OrderLineItem;
+import com.musinsa.orders.domain.order.ShippingFeePolicy;
 import com.musinsa.orders.domain.refund.Refund;
 import com.musinsa.orders.domain.refund.RefundLineItem;
 import com.musinsa.orders.domain.refund.RefundReason;
-import com.musinsa.orders.domain.order.ShippingFeePolicy;
 import java.util.List;
 import java.util.Random;
 
@@ -44,7 +44,9 @@ public class Fixtures {
   public static OrderLineItem createOrderLineItem(Long productId, String name, Long price) {
     return createOrderLineItem(new Random().nextLong(), productId, name, price);
   }
-  public static OrderLineItem createOrderLineItem(Long id, Long productId, String name, Long price) {
+
+  public static OrderLineItem createOrderLineItem(Long id, Long productId, String name,
+      Long price) {
     return new OrderLineItem(id, productId, name, price);
   }
 

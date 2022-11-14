@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface RefundRepository {
 
-    Refund save(Refund refund);
+  Refund save(Refund refund);
 
-    List<Refund> findByOrderId(Long orderId);
+  List<Refund> findByOrderId(Long orderId);
 }
