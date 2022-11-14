@@ -3,11 +3,10 @@ package com.musinsa.orders;
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
 import com.musinsa.orders.domain.order.OrderLineItem;
-import com.musinsa.orders.domain.order.ShippingFeePolicy;
 import com.musinsa.orders.domain.refund.Refund;
 import com.musinsa.orders.domain.refund.RefundLineItem;
 import com.musinsa.orders.domain.refund.RefundReason;
-import com.musinsa.orders.infra.order.AmountShippingFeePolicy;
+import com.musinsa.orders.domain.order.ShippingFeePolicy;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +15,7 @@ public class Fixtures {
   public static Order createOrder(
       List<OrderLineItem> orderLineItems
   ) {
-    return createOrder(new Random().nextLong(), orderLineItems, new AmountShippingFeePolicy());
+    return createOrder(new Random().nextLong(), orderLineItems, new ShippingFeePolicy());
   }
 
   public static Order createOrder(
@@ -26,7 +25,7 @@ public class Fixtures {
     return createOrder(
         id,
         orderLineItems,
-        new AmountShippingFeePolicy()
+        new ShippingFeePolicy()
     );
   }
 

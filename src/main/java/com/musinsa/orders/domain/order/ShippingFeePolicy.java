@@ -1,6 +1,17 @@
 package com.musinsa.orders.domain.order;
 
-public interface ShippingFeePolicy {
+import org.springframework.stereotype.Component;
 
-  Money calculateShippingFee(Order order);
+@Component
+public class ShippingFeePolicy {
+
+  private static final Money FREE_SHIPPING_BASE_AMOUNT = Money.from(50_000L);
+  public static final Money SHIPPING_FEE = Money.from(2_500L);
+
+  public Money calculateShippingFee(Order order) {
+    if (order.calculateTotalAmount().isGreaterThanOrEqual(FREE_SHIPPING_BASE_AMOUNT)) {
+      return Money.ZERO;
+    }
+    return SHIPPING_FEE;
+  }
 }

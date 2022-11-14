@@ -4,10 +4,6 @@ import static com.musinsa.orders.Fixtures.createOrder;
 import static com.musinsa.orders.Fixtures.createOrderLineItem;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.musinsa.orders.domain.order.Money;
-import com.musinsa.orders.domain.order.Order;
-import com.musinsa.orders.domain.order.ShippingFeePolicy;
-import com.musinsa.orders.infra.order.AmountShippingFeePolicy;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +15,7 @@ class ShippingFeePolicyTest {
 
   @BeforeEach
   void setUp() {
-    shippingFeePolicy = new AmountShippingFeePolicy();
+    shippingFeePolicy = new ShippingFeePolicy();
   }
 
   @DisplayName("5만원 미만 주문금액에 대해 유료 배송비 2500원을 반환한다")
