@@ -2,8 +2,6 @@ package com.musinsa.orders.infra.exchange;
 
 import com.musinsa.orders.domain.exchange.Exchange;
 import com.musinsa.orders.domain.exchange.ExchangeRepository;
-import com.musinsa.orders.domain.refund.Refund;
-import com.musinsa.orders.domain.refund.RefundRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +31,10 @@ public class InMemoryExchangeRepository implements ExchangeRepository {
         .collect(Collectors.toList());
   }
 
+  @Override
+  public void deleteAll() {
+    store.clear();
+  }
   private Long generateId(final Long id) {
     return Optional.ofNullable(id).orElse(new Random().nextLong());
   }

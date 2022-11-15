@@ -10,4 +10,6 @@ public interface ExchangeRepository {
   List<Exchange> findByOrderId(Long orderId);
 
   Optional<Exchange> findById(Long exchangeId);
+
+  void deleteAll();
 }
