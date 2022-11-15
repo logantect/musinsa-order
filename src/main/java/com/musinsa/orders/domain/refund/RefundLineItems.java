@@ -1,5 +1,6 @@
 package com.musinsa.orders.domain.refund;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public class RefundLineItems {
 
   @ElementCollection
   @CollectionTable(name = "refund_line_item", joinColumns = @JoinColumn(name = "refund_id"))
-  private List<RefundLineItem> refundLineItems = List.of();
+  private List<RefundLineItem> refundLineItems = new ArrayList<>();
 
   public RefundLineItems(List<RefundLineItem> refundLineItems) {
     if (refundLineItems == null || refundLineItems.isEmpty()) {
