@@ -47,9 +47,8 @@ public class Refund {
   @AttributeOverride(name = "amount", column = @Column(name = "return_shipping_fee", nullable = false))
   private Money returnShippingFee;
 
-  @ElementCollection
-  @CollectionTable(name = "refund_line_item", joinColumns = @JoinColumn(name = "refund_id"))
-  private List<RefundLineItem> refundLineItems = List.of();
+  @Embedded
+  private RefundLineItems refundLineItems;
 
   public Refund(
       Long orderId,
@@ -84,7 +83,7 @@ public class Refund {
     this.status = RefundStatus.ACCEPTED;
     this.reason = reason;
     this.returnShippingFee = returnShippingFee;
-    this.refundLineItems = refundLineItems;
+    this.refundLineItems = new RefundLineItems(refundLineItems);
   }
 
   public Long id() {
@@ -108,6 +107,6 @@ public class Refund {
   }
 
   public List<RefundLineItem> refundLineItems() {
-    return Collections.unmodifiableList(refundLineItems);
+    return refundLineItems.refundLineItems();
   }
 }
