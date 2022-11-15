@@ -36,6 +36,10 @@ public class Money {
     return amount >= other.amount;
   }
 
+  public long amount() {
+    return amount;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
