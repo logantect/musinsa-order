@@ -12,7 +12,8 @@ import static org.hamcrest.Matchers.hasSize;
 
 import com.musinsa.orders.application.order.OrderDtos.OrderLineItemRequest;
 import com.musinsa.orders.application.order.OrderDtos.OrderRequest;
-import com.musinsa.orders.application.order.OrderDtos.RefundLineItemRequest;
+import com.musinsa.orders.application.order.OrderDtos.OrderReturnRequest;
+import com.musinsa.orders.application.order.OrderDtos.ReturnLineItemRequest;
 import com.musinsa.orders.domain.exchange.ExchangeReason;
 import com.musinsa.orders.domain.exchange.ExchangeReason.ExchangeReasonType;
 import com.musinsa.orders.domain.exchange.ExchangeRepository;
@@ -136,7 +137,8 @@ class OrderRestControllerTest {
     void case1() {
       Order savedOrder = orderRepository.save(order);
       OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
-      RefundLineItemRequest request = new RefundLineItemRequest(List.of(orderLineItemA.id()));
+      OrderReturnRequest request = new OrderReturnRequest(
+          List.of(new ReturnLineItemRequest(orderLineItemA.id())));
 
       given().
           header("Content-type", MediaType.APPLICATION_JSON_VALUE).
@@ -156,7 +158,8 @@ class OrderRestControllerTest {
       Order savedOrder = orderRepository.save(order);
       OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
       OrderLineItem orderLineItemB = savedOrder.getOrderLineItems().get(1);
-      RefundLineItemRequest request = new RefundLineItemRequest(List.of(orderLineItemB.id()));
+      OrderReturnRequest request = new OrderReturnRequest(
+          List.of(new ReturnLineItemRequest(orderLineItemB.id())));
 
       exchangeRepository.save(
           exchange(
@@ -187,8 +190,12 @@ class OrderRestControllerTest {
       OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
       OrderLineItem orderLineItemB = savedOrder.getOrderLineItems().get(1);
       OrderLineItem orderLineItemC = savedOrder.getOrderLineItems().get(2);
-      RefundLineItemRequest request = new RefundLineItemRequest(
-          List.of(orderLineItemA.id(), orderLineItemC.id()));
+      OrderReturnRequest request = new OrderReturnRequest(
+          List.of(
+              new ReturnLineItemRequest(orderLineItemA.id()),
+              new ReturnLineItemRequest(orderLineItemC.id())
+          )
+      );
 
       exchangeRepository.save(
           exchange(
@@ -239,7 +246,8 @@ class OrderRestControllerTest {
     void case1() {
       Order savedOrder = orderRepository.save(order);
       OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
-      RefundLineItemRequest request = new RefundLineItemRequest(List.of(orderLineItemA.id()));
+      OrderReturnRequest request = new OrderReturnRequest(
+          List.of(new ReturnLineItemRequest(orderLineItemA.id())));
 
       given().
           header("Content-type", MediaType.APPLICATION_JSON_VALUE).
@@ -260,8 +268,12 @@ class OrderRestControllerTest {
       OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
       OrderLineItem orderLineItemB = savedOrder.getOrderLineItems().get(1);
       OrderLineItem orderLineItemC = savedOrder.getOrderLineItems().get(2);
-      RefundLineItemRequest request = new RefundLineItemRequest(
-          List.of(orderLineItemB.id(), orderLineItemC.id()));
+      OrderReturnRequest request = new OrderReturnRequest(
+          List.of(
+              new ReturnLineItemRequest(orderLineItemB.id()),
+              new ReturnLineItemRequest(orderLineItemC.id())
+          )
+      );
 
       refundRepository.save(
           refund(

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,14 @@ import lombok.NoArgsConstructor;
 public class ExchangeLineItems {
 
   @ElementCollection
-  @CollectionTable(name = "exchange_line_item", joinColumns = @JoinColumn(name = "exchange_id"))
+  @CollectionTable(
+      name = "exchange_line_item",
+      joinColumns = @JoinColumn(
+          name = "exchange_id",
+          nullable = false,
+          foreignKey = @ForeignKey(name = "fk_exchange_line_item_to_exchange")
+      )
+  )
   private List<ExchangeLineItem> exchangeLineItems = new ArrayList<>();
 
   public ExchangeLineItems(List<ExchangeLineItem> exchangeLineItems) {

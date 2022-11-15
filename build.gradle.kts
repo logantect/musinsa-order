@@ -2,6 +2,7 @@ plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     id("java")
+    id("org.flywaydb.flyway") version "9.1.2"
 }
 
 val projectGroup: String by project
@@ -30,8 +31,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-hateoas")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.flywaydb:flyway-mysql")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.h2database:h2")
+    runtimeOnly("mysql:mysql-connector-java")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.assertj:assertj-core:3.23.1")
@@ -40,4 +43,13 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks {
+    flyway {
+        url =
+            "jdbc:mysql://localhost:53306/musinsa-order?characterEncoding=UTF-8&serverTimezone=UTC"
+        user = "user"
+        password = "password"
+    }
 }
