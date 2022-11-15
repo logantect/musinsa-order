@@ -46,8 +46,10 @@ public class OrderRestController {
       @PathVariable final Long orderId,
       @RequestBody @Valid OrderDtos.RefundLineItemRequest request
   ) {
-    Money refundShippingFee = orderService.calculateExchangeShippingFee(orderId, request.returnLineItemIds());
-    return ResponseEntity.ok(new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
+    Money refundShippingFee = orderService.calculateExchangeShippingFee(orderId,
+        request.returnLineItemIds());
+    return ResponseEntity.ok(
+        new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
   }
 
   @PostMapping("/{orderId}/refunds/calculate")
@@ -55,7 +57,9 @@ public class OrderRestController {
       @PathVariable final Long orderId,
       @RequestBody @Valid OrderDtos.RefundLineItemRequest request
   ) {
-    Money refundShippingFee = orderService.calculateRefundShippingFee(orderId, request.returnLineItemIds());
-    return ResponseEntity.ok(new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
+    Money refundShippingFee = orderService.calculateRefundShippingFee(orderId,
+        request.returnLineItemIds());
+    return ResponseEntity.ok(
+        new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
   }
 }

@@ -11,7 +11,8 @@ public record RefundRequestLineItems(
 ) {
 
   public RefundRequestLineItems {
-    if (!isEmpty(refundedLineItems) && refundRequestLineItems.existRefundLineItem(refundedLineItems)) {
+    if (!isEmpty(refundedLineItems) && refundRequestLineItems.existRefundLineItem(
+        refundedLineItems)) {
       throw new IllegalArgumentException("이미 환불진행 중이거나 환불완료된 주문 상품이 존재합니다");
     }
   }

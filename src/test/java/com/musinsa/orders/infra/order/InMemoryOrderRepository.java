@@ -26,6 +26,7 @@ public class InMemoryOrderRepository implements OrderRepository {
   public void deleteAll() {
     store.clear();
   }
+
   private Long generateId(final Long id) {
     return Optional.ofNullable(id).orElse(new Random().nextLong());
   }

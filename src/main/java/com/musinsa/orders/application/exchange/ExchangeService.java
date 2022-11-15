@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ExchangeService {
 
   private final ExchangeRepository exchangeRepository;
-  
+
   @Transactional
   public ExchangeResponse createExchange(ExchangeRequest dto) {
     Exchange requestExchange = dto.toEntity();
@@ -40,7 +40,8 @@ public class ExchangeService {
         .collect(Collectors.toList());
 
     ExchangeLineItems exchangeLineItems = requestExchange.exchangeLineItems();
-    if (!isEmpty(exchangedLineItems) && exchangeLineItems.existExchangeLineItem(exchangedLineItems)) {
+    if (!isEmpty(exchangedLineItems) && exchangeLineItems.existExchangeLineItem(
+        exchangedLineItems)) {
       throw new IllegalArgumentException("이미 교환진행 중이거나 교환완료된 주문 상품이 존재합니다");
     }
   }
