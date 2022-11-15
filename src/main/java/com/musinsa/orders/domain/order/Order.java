@@ -56,11 +56,15 @@ public class Order {
     return shippingFee;
   }
 
-  public List<OrderLineItem> getOrderLineItems(List<Long> orderLineItemIds) {
-    return Collections.unmodifiableList(orderLineItems.getOrderLineItems(orderLineItemIds));
-  }
-
   public boolean isFreeShippingFee() {
     return shippingFee.equals(Money.ZERO);
+  }
+
+  public boolean existOrderLineItems(List<Long> orderLineItemIds) {
+    return orderLineItems.existOrderLineItem(orderLineItemIds);
+  }
+
+  public boolean allMatchLineItems(List<Long> orderLineItemIds) {
+    return orderLineItems.allMatchOrderLineItem(orderLineItemIds);
   }
 }
