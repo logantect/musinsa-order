@@ -15,8 +15,7 @@ public class ExchangePolicy {
   }
 
   private void validateNotExist(Order order, List<Long> returnLineItemIds) {
-    List<OrderLineItem> returnLineItems = order.getOrderLineItems(returnLineItemIds);
-    if (returnLineItems.size() != returnLineItemIds.size()) {
+    if (!order.existOrderLineItems(returnLineItemIds)) {
       throw new IllegalArgumentException("교환할 주문 상품이 존재하지 않습니다.");
     }
   }
