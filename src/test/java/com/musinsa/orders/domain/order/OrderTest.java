@@ -29,9 +29,9 @@ class OrderTest {
     ), shippingFeePolicy);
 
     assertThat(actual).isNotNull();
-    assertThat(actual.orderLineItems()).hasSize(3);
+    assertThat(actual.getOrderLineItems()).hasSize(3);
     assertThat(actual.shippingFee()).isEqualTo(Money.from(2_500L));
-    assertThat(actual.orderLineItems()).extracting("productId", "name", "price")
+    assertThat(actual.getOrderLineItems()).extracting("productId", "name", "price")
         .contains(
             tuple(1L, ProductName.from("신발A"), Money.from(15_000L)),
             tuple(2L, ProductName.from("신발B"), Money.from(16_000L)),

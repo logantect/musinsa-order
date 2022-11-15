@@ -44,8 +44,12 @@ public class Order {
     return id;
   }
 
-  public List<OrderLineItem> orderLineItems() {
+  public List<OrderLineItem> getOrderLineItems() {
     return Collections.unmodifiableList(orderLineItems.orderLineItems());
+  }
+
+  public OrderLineItems orderLineItems() {
+    return orderLineItems;
   }
 
   public Money calculateTotalAmount() {

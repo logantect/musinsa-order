@@ -34,7 +34,7 @@ public class OrderDtos {
 
     public OrderResponse(final Order order) {
       this.id = order.id();
-      this.orderLineItems = order.orderLineItems().stream()
+      this.orderLineItems = order.getOrderLineItems().stream()
           .map(OrderLineItemResponse::new)
           .collect(Collectors.toList());
     }
