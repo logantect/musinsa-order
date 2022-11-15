@@ -27,7 +27,6 @@ class RefundPolicyTest {
 
   private RefundPolicy refundPolicy;
   private RefundRepository refundRepository;
-
   private ExchangeRepository exchangeRepository;
 
   @BeforeEach
@@ -215,6 +214,19 @@ class RefundPolicyTest {
   @Nested
   @DisplayName("환불 반품비를 계산할 수 없다")
   class NotValidOrderLineItem {
+
+    @Test
+    @DisplayName("존재하지 않는 주문상품이 있는 경우 환불 반품비를 계산할 수 없다.")
+    void calculateReturnShippingFee_NotExistLineItem() {
+      Order order = createOrder(1L, List.of(
+          createOrderLineItem(1L, 1L, "신발A", 15_000L),
+          createOrderLineItem(2L, 2L, "신발B", 16_000L),
+          createOrderLineItem(3L, 3L, "신발C", 17_000L)
+      ));
+
+      assertThatIllegalArgumentException()
+          .isThrownBy(() -> refundPolicy.calculateReturnShippingFee(order, List.of(4L)));
+    }
 
     @Test
     @DisplayName("이미 환불된 주문상품은 환불 반품비를 계산할 수 없다.")
