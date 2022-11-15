@@ -6,7 +6,9 @@ import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
 import com.musinsa.orders.domain.order.OrderLineItem;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ExchangePolicy {
 
   public Money calculateReturnShippingFee(Order order, List<Long> returnLineItemIds) {

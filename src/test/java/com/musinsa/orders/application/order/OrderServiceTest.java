@@ -6,6 +6,7 @@ import static com.musinsa.orders.Fixtures.exchange;
 import static com.musinsa.orders.Fixtures.exchangeLineItem;
 import static com.musinsa.orders.Fixtures.refund;
 import static com.musinsa.orders.Fixtures.refundLineItem;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.musinsa.orders.domain.exchange.ExchangePolicy;
 import com.musinsa.orders.domain.exchange.ExchangeReason;
@@ -23,7 +24,6 @@ import com.musinsa.orders.infra.exchange.InMemoryExchangeRepository;
 import com.musinsa.orders.infra.order.InMemoryOrderRepository;
 import com.musinsa.orders.infra.refund.InMemoryRefundRepository;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -65,7 +65,7 @@ class OrderServiceTest {
     void case1() {
       Order savedOrder = orderRepository.save(order);
       Money actual = orderService.calculateExchangeShippingFee(savedOrder.id(), List.of(1L));
-      Assertions.assertEquals(actual, Money.from(5_000L));
+      assertEquals(actual, Money.from(5_000L));
     }
 
     @Test
@@ -83,7 +83,7 @@ class OrderServiceTest {
       );
 
       Money actual = orderService.calculateRefundShippingFee(savedOrder.id(), List.of(1L));
-      Assertions.assertEquals(actual, Money.from(2_500L));
+      assertEquals(actual, Money.from(2_500L));
     }
 
     @Test
@@ -111,7 +111,45 @@ class OrderServiceTest {
       );
 
       Money actual = orderService.calculateRefundShippingFee(savedOrder.id(), List.of(3L, 1L));
-      Assertions.assertEquals(actual, Money.from(2_500L));
+      assertEquals(actual, Money.from(2_500L));
+    }
+
+  }
+
+  @Nested
+  @DisplayName("주문 번호 2번")
+  class ProblemOrder2 {
+
+    private final Order order = createOrder(1L, List.of(
+        createOrderLineItem(1L, 1L, "셔츠A", 40_000L),
+        createOrderLineItem(2L, 2L, "셔츠B", 50_000L),
+        createOrderLineItem(3L, 3L, "셔츠C", 60_000L)
+    ));
+
+    @Test
+    @DisplayName("셔츠A 상품 환불에 반품비 2,500원을 반환한다")
+    void case1() {
+      Order savedOrder = orderRepository.save(order);
+      Money actual = orderService.calculateRefundShippingFee(savedOrder.id(), List.of(1L));
+      assertEquals(actual, Money.from(2_500L));
+    }
+
+    @Test
+    @DisplayName("셔츠A 상품 환불 다음 셔츠B와 C를 한번에 환불에 반품비 5,000원을 반환한다")
+    void case2() {
+      Order savedOrder = orderRepository.save(order);
+      refundRepository.save(
+          refund(
+              1L,
+              savedOrder.id(),
+              new RefundReason(RefundReasonType.CHANGE_OF_MIND, "상품 색상이 마음에 안들어요"),
+              Money.from(2_500L),
+              List.of(refundLineItem(1L))
+          )
+      );
+
+      Money actual = orderService.calculateRefundShippingFee(savedOrder.id(), List.of(2L, 3L));
+      assertEquals(actual, Money.from(5_000L));
     }
 
   }
