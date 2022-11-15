@@ -11,4 +11,5 @@ public interface RefundRepository {
 
   List<Refund> findByOrderId(Long orderId);
 
+  void deleteAll();
 }
