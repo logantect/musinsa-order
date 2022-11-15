@@ -21,7 +21,17 @@ public class OrderDtos {
 
   }
 
-  public record RefundLineItemRequest(List<Long> returnLineItemIds) {
+  public record OrderReturnRequest(List<ReturnLineItemRequest> returnLineItems) {
+
+    public List<Long> toLineItemIds() {
+      return this.returnLineItems.stream()
+          .map(it -> it.lineItemId)
+          .collect(Collectors.toList());
+    }
+
+  }
+
+  public record ReturnLineItemRequest(Long lineItemId) {
 
   }
 

@@ -1,0 +1,89 @@
+### 주문번호 2번 주문 등록
+POST {{host}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "orderLineItems": [
+    {
+      "productId": 4,
+      "name": "셔츠A",
+      "price": 40000
+    },
+    {
+      "productId": 5,
+      "name": "셔츠B",
+      "price": 50000
+    },
+    {
+      "productId": 6,
+      "name": "셔츠C",
+      "price": 60000
+    }
+  ]
+}
+
+### 주문번호 2번 - 셔츠A 환불 반품비 예상금액 조회
+POST {{host}}/api/v1/orders/2/refunds/calculate
+Content-Type: application/json
+
+{
+  "returnLineItems": [
+    {
+      "lineItemId": 4
+    }
+  ]
+}
+
+### 주문번호 2번 - 셔츠A 환불 접수
+POST {{host}}/api/v1/refunds
+Content-Type: application/json
+
+{
+  "orderId": 2,
+  "reason": {
+    "reason": "CHANGE_OF_MIND",
+    "detailedReason": "상품 색상이 마음에 안들어요"
+  },
+  "returnShippingFee": 2500,
+  "refundLineItems": [
+    {
+      "orderLineItemId": 4
+    }
+  ]
+}
+
+### 주문번호 2번 - 셔츠B와 C를 한번에 환불 반품비 예상금액 조회
+POST {{host}}/api/v1/orders/2/refunds/calculate
+Content-Type: application/json
+
+{
+  "returnLineItems": [
+    {
+      "lineItemId": 5
+    },
+    {
+      "lineItemId": 6
+    }
+  ]
+}
+
+### 주문번호 2번 - 셔츠B와 C를 한번에 환불 접수
+POST {{host}}/api/v1/refunds
+Content-Type: application/json
+
+{
+  "orderId": 2,
+  "reason": {
+    "reason": "CHANGE_OF_MIND",
+    "detailedReason": "상품 색상이 마음에 안들어요"
+  },
+  "returnShippingFee": 5000,
+  "refundLineItems": [
+    {
+      "orderLineItemId": 5
+    },
+    {
+      "orderLineItemId": 6
+    }
+  ]
+}

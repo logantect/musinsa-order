@@ -44,10 +44,12 @@ public class OrderRestController {
   @PostMapping("/{orderId}/exchanges/calculate")
   public ResponseEntity<ApiResponse<ReturnShippingFeeResponse>> calculateExchangeShippingFee(
       @PathVariable final Long orderId,
-      @RequestBody @Valid OrderDtos.RefundLineItemRequest request
+      @RequestBody @Valid OrderDtos.OrderReturnRequest request
   ) {
-    Money refundShippingFee = orderService.calculateExchangeShippingFee(orderId,
-        request.returnLineItemIds());
+    Money refundShippingFee = orderService.calculateExchangeShippingFee(
+        orderId,
+        request.toLineItemIds()
+    );
     return ResponseEntity.ok(
         new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
   }
@@ -55,10 +57,12 @@ public class OrderRestController {
   @PostMapping("/{orderId}/refunds/calculate")
   public ResponseEntity<ApiResponse<ReturnShippingFeeResponse>> calculateRefundShippingFee(
       @PathVariable final Long orderId,
-      @RequestBody @Valid OrderDtos.RefundLineItemRequest request
+      @RequestBody @Valid OrderDtos.OrderReturnRequest request
   ) {
-    Money refundShippingFee = orderService.calculateRefundShippingFee(orderId,
-        request.returnLineItemIds());
+    Money refundShippingFee = orderService.calculateRefundShippingFee(
+        orderId,
+        request.toLineItemIds()
+    );
     return ResponseEntity.ok(
         new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
   }

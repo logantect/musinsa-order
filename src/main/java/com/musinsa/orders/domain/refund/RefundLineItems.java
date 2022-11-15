@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,14 @@ import lombok.NoArgsConstructor;
 public class RefundLineItems {
 
   @ElementCollection
-  @CollectionTable(name = "refund_line_item", joinColumns = @JoinColumn(name = "refund_id"))
+  @CollectionTable(
+      name = "refund_line_item",
+      joinColumns = @JoinColumn(
+          name = "refund_id",
+          nullable = false,
+          foreignKey = @ForeignKey(name = "fk_refund_line_item_to_refund")
+      )
+  )
   private List<RefundLineItem> refundLineItems = new ArrayList<>();
 
   public RefundLineItems(List<RefundLineItem> refundLineItems) {
