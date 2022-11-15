@@ -21,12 +21,16 @@ public class OrderDtos {
 
   }
 
+  public record RefundLineItemRequest(List<Long> returnLineItemIds) {
+
+  }
+
   @Data
   public static class OrderResponse {
 
-    private Long id;
+    private final Long id;
 
-    private List<OrderLineItemResponse> orderLineItems;
+    private final List<OrderLineItemResponse> orderLineItems;
 
     public OrderResponse(final Order order) {
       this.id = order.id();
@@ -39,10 +43,10 @@ public class OrderDtos {
   @Data
   public static class OrderLineItemResponse {
 
-    private Long id;
-    private Long productId;
-    private String name;
-    private Long price;
+    private final Long id;
+    private final Long productId;
+    private final String name;
+    private final Long price;
 
     public OrderLineItemResponse(final OrderLineItem orderLineItem) {
       this.id = orderLineItem.id();
