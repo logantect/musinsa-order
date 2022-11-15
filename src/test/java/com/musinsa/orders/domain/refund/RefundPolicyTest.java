@@ -7,6 +7,7 @@ import static com.musinsa.orders.Fixtures.exchangeLineItem;
 import static com.musinsa.orders.Fixtures.refund;
 import static com.musinsa.orders.Fixtures.refundLineItem;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import com.musinsa.orders.domain.exchange.ExchangeReason;
 import com.musinsa.orders.domain.exchange.ExchangeReason.ExchangeReasonType;
@@ -209,6 +210,35 @@ class RefundPolicyTest {
       Money actual = refundPolicy.calculateReturnShippingFee(order, List.of(3L, 1L));
       assertThat(actual).isEqualTo(Money.from(5_000L));
     }
+  }
+
+  @Nested
+  @DisplayName("환불 반품비를 계산할 수 없다")
+  class NotValidOrderLineItem {
+
+    @Test
+    @DisplayName("이미 환불된 주문상품은 환불 반품비를 계산할 수 없다.")
+    void calculateReturnShippingFee_alreadyRefunded() {
+      Order order = createOrder(1L, List.of(
+          createOrderLineItem(1L, 1L, "셔츠A", 40_000L),
+          createOrderLineItem(2L, 2L, "셔츠B", 50_000L),
+          createOrderLineItem(3L, 3L, "셔츠C", 60_000L)
+      ));
+
+      refundRepository.save(
+          refund(
+              1L,
+              1L,
+              new RefundReason(RefundReasonType.CHANGE_OF_MIND, "상품 색상이 마음에 안들어요"),
+              Money.from(2_500L),
+              List.of(refundLineItem(2L))
+          )
+      );
+
+      assertThatIllegalArgumentException()
+          .isThrownBy(() -> refundPolicy.calculateReturnShippingFee(order, List.of(2L)));
+    }
+
   }
 
 }

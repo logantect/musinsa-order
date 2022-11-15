@@ -4,6 +4,7 @@ import static com.musinsa.orders.domain.order.ShippingFeePolicy.ROUND_TRIP_SHIPP
 
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.domain.order.Order;
+import com.musinsa.orders.domain.order.OrderLineItem;
 import com.musinsa.orders.domain.order.ShippingFeePolicy;
 import java.util.List;
 import java.util.Objects;
@@ -17,14 +18,25 @@ public class RefundPolicy {
   private final RefundRepository refundRepository;
 
   public Money calculateReturnShippingFee(Order order, List<Long> returnLineItemIds) {
+    List<Long> refundedLineItemIds = getRefundedLineItemIds(order.id());
+    validateAlreadyRefund(refundedLineItemIds, returnLineItemIds);
+
     boolean freeShippingFee = order.isFreeShippingFee();
-    boolean fullRefund = isFullRefund(order,
-        concat(getRefundedLineItemIds(order.id()), returnLineItemIds));
+    boolean fullRefund = isFullRefund(order, concat(refundedLineItemIds, returnLineItemIds));
 
     if (freeShippingFee && fullRefund) {
       return ROUND_TRIP_SHIPPING_FEE;
     }
     return ShippingFeePolicy.SHIPPING_FEE;
+  }
+
+  private static void validateAlreadyRefund(List<Long> refundedLineItemIds,
+      List<Long> returnLineItemIds) {
+    refundedLineItemIds.forEach(it -> {
+      if (returnLineItemIds.contains(it)) {
+        throw new IllegalArgumentException("이미 환불진행 중이거나 환불완료된 주문 상품입니다. 주문 상품 ID: " + it);
+      }
+    });
   }
 
   private boolean isFullRefund(Order order, List<Long> returnLineItemIds) {
