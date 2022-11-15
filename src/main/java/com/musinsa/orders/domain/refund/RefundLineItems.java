@@ -36,4 +36,31 @@ public class RefundLineItems {
     return Collections.unmodifiableList(refundLineItems);
   }
 
+  public boolean existRefundLineItem(List<RefundLineItem> refundLineItems) {
+    return existRefundLineItem(new RefundLineItems(refundLineItems));
+  }
+
+  public boolean existRefundLineItem(RefundLineItems refundLineItems) {
+    return this.refundLineItems.stream().anyMatch(refundLineItems::contains);
+  }
+
+  public boolean contains(RefundLineItem refundLineItem) {
+    return refundLineItems.contains(refundLineItem);
+  }
+
+  public RefundLineItems concat(List<RefundLineItem> refundLineItems) {
+    return new RefundLineItems(
+        Stream.concat(
+            this.refundLineItems.stream(),
+            refundLineItems.stream()
+        ).toList()
+    );
+  }
+
+  public List<Long> getOrderLineItemIds() {
+    return refundLineItems.stream()
+        .map(RefundLineItem::orderLineItemId)
+        .collect(Collectors.toList());
+  }
+
 }
