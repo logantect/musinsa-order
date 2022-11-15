@@ -18,10 +18,9 @@ public class OrderLineItems {
   @JoinColumn(
       name = "order_id",
       nullable = false,
-      columnDefinition = "binary(16)",
       foreignKey = @ForeignKey(name = "fk_order_line_item_to_orders")
   )
-  private List<OrderLineItem> orderLineItems = List.of();
+  private List<OrderLineItem> orderLineItems;
 
   public OrderLineItems(List<OrderLineItem> orderLineItems) {
     if (orderLineItems == null || orderLineItems.isEmpty()) {
