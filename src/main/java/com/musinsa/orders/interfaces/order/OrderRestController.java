@@ -2,12 +2,11 @@ package com.musinsa.orders.interfaces.order;
 
 import com.musinsa.orders.application.order.OrderDtos;
 import com.musinsa.orders.application.order.OrderDtos.OrderResponse;
-import com.musinsa.orders.application.order.OrderDtos.ReturnShippingFee;
+import com.musinsa.orders.application.order.OrderDtos.ReturnShippingFeeResponse;
 import com.musinsa.orders.application.order.OrderService;
 import com.musinsa.orders.domain.order.Money;
 import com.musinsa.orders.interfaces.support.ApiResponse;
 import java.net.URI;
-import java.net.URISyntaxException;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,20 +42,20 @@ public class OrderRestController {
   }
 
   @PostMapping("/{orderId}/exchanges/calculate")
-  public ResponseEntity<ApiResponse<ReturnShippingFee>> calculateExchangeShippingFee(
+  public ResponseEntity<ApiResponse<ReturnShippingFeeResponse>> calculateExchangeShippingFee(
       @PathVariable final Long orderId,
       @RequestBody @Valid OrderDtos.RefundLineItemRequest request
   ) {
     Money refundShippingFee = orderService.calculateExchangeShippingFee(orderId, request.returnLineItemIds());
-    return ResponseEntity.ok(new ApiResponse<>(new ReturnShippingFee(refundShippingFee.amount())));
+    return ResponseEntity.ok(new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
   }
 
   @PostMapping("/{orderId}/refunds/calculate")
-  public ResponseEntity<ApiResponse<ReturnShippingFee>> calculateRefundShippingFee(
+  public ResponseEntity<ApiResponse<ReturnShippingFeeResponse>> calculateRefundShippingFee(
       @PathVariable final Long orderId,
       @RequestBody @Valid OrderDtos.RefundLineItemRequest request
   ) {
     Money refundShippingFee = orderService.calculateRefundShippingFee(orderId, request.returnLineItemIds());
-    return ResponseEntity.ok(new ApiResponse<>(new ReturnShippingFee(refundShippingFee.amount())));
+    return ResponseEntity.ok(new ApiResponse<>(new ReturnShippingFeeResponse(refundShippingFee.amount())));
   }
 }

@@ -38,7 +38,7 @@ public class RefundPolicy {
   private List<RefundLineItem> getRefundedLineItems(final Long orderId) {
     List<Refund> refundedLineItems = refundRepository.findByOrderId(orderId);
     return refundedLineItems.stream()
-        .flatMap(refund -> refund.refundLineItems().stream())
+        .flatMap(refund -> refund.getRefundLineItems().stream())
         .collect(Collectors.toList());
   }
 

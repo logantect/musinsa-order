@@ -46,8 +46,12 @@ class OrderServiceTest {
     refundPolicy = new RefundPolicy(refundRepository);
     exchangeRepository = new InMemoryExchangeRepository();
     exchangePolicy = new ExchangePolicy();
-    orderService = new OrderService(orderRepository, refundPolicy, exchangePolicy,
-        new ShippingFeePolicy());
+    orderService = new OrderService(
+        orderRepository,
+        refundPolicy,
+        exchangePolicy,
+        new ShippingFeePolicy()
+    );
   }
 
   @Nested

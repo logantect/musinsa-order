@@ -56,7 +56,7 @@ public class OrderDtos {
     }
   }
 
-  public record ReturnShippingFee(Long returnShippingFee) {
+  public record ReturnShippingFeeResponse(Long returnShippingFee) {
 
   }
 

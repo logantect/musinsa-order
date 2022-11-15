@@ -1,13 +1,10 @@
 package com.musinsa.orders.domain.refund;
 
 import com.musinsa.orders.domain.order.Money;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.AttributeOverride;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +12,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -108,7 +104,11 @@ public class Refund {
     return returnShippingFee;
   }
 
-  public List<RefundLineItem> refundLineItems() {
+  public List<RefundLineItem> getRefundLineItems() {
     return refundLineItems.refundLineItems();
+  }
+
+  public RefundLineItems refundLineItems() {
+    return refundLineItems;
   }
 }
