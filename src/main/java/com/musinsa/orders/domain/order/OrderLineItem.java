@@ -43,11 +43,19 @@ public class OrderLineItem {
     this.price = Money.from(price);
   }
 
-  public Money price() {
-    return price;
-  }
-
   public Long id() {
     return id;
+  }
+
+  public Long productId() {
+    return productId;
+  }
+
+  public ProductName name() {
+    return name;
+  }
+
+  public Money price() {
+    return price;
   }
 }
