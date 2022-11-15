@@ -87,7 +87,7 @@ class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("신발B 상품 환불 다음 신발C와 신발A를 한번에 환불에 반품비 5,000원을 반환한다")
+    @DisplayName("신발B 상품 환불 다음 신발C와 신발A를 한번에 환불에 반품비 2,500원을 반환한다")
     void case3() {
       Order savedOrder = orderRepository.save(order);
       exchangeRepository.save(

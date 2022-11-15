@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class OrderLineItems {
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
   @JoinColumn(
       name = "order_id",
       nullable = false,

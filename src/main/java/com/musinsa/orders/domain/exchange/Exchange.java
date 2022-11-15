@@ -1,6 +1,7 @@
 package com.musinsa.orders.domain.exchange;
 
 import com.musinsa.orders.domain.order.Money;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -48,8 +49,8 @@ public class Exchange {
   private Money returnShippingFee;
 
   @ElementCollection
-  @CollectionTable(name = "refund_line_item", joinColumns = @JoinColumn(name = "refund_id"))
-  private List<ExchangeLineItem> exchangeLineItems = List.of();
+  @CollectionTable(name = "exchange_line_item", joinColumns = @JoinColumn(name = "exchange_id"))
+  private List<ExchangeLineItem> exchangeLineItems = new ArrayList<>();
 
   public Exchange(
       Long orderId,
