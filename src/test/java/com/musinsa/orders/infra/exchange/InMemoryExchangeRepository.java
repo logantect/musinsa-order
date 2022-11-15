@@ -7,6 +7,8 @@ import com.musinsa.orders.domain.refund.RefundRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class InMemoryExchangeRepository implements ExchangeRepository {
@@ -15,8 +17,13 @@ public class InMemoryExchangeRepository implements ExchangeRepository {
 
   @Override
   public Exchange save(Exchange exchange) {
-    store.put(exchange.id(), exchange);
+    store.put(generateId(exchange.id()), exchange);
     return exchange;
+  }
+
+  @Override
+  public Optional<Exchange> findById(Long exchangeId) {
+    return Optional.ofNullable(store.get(exchangeId));
   }
 
   @Override
@@ -24,5 +31,9 @@ public class InMemoryExchangeRepository implements ExchangeRepository {
     return store.values().stream()
         .filter(exchange -> orderId.equals(exchange.orderId()))
         .collect(Collectors.toList());
+  }
+
+  private Long generateId(final Long id) {
+    return Optional.ofNullable(id).orElse(new Random().nextLong());
   }
 }

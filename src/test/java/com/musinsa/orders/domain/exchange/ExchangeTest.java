@@ -31,8 +31,8 @@ class ExchangeTest {
     assertThat(actual.reason()).isEqualTo(
         new ExchangeReason(ExchangeReasonType.CHANGE_OF_MIND, "상품 색상이 마음에 안들어요"));
     assertThat(actual.returnShippingFee()).isEqualTo(Money.from(5_000L));
-    assertThat(actual.exchangeLineItems()).hasSize(2);
-    assertThat(actual.exchangeLineItems()).extracting("orderLineItemId")
+    assertThat(actual.getExchangeLineItems()).hasSize(2);
+    assertThat(actual.getExchangeLineItems()).extracting("orderLineItemId")
         .contains(1L, 2L);
   }
 

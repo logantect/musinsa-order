@@ -89,6 +89,21 @@ public class Fixtures {
   }
 
   public static Exchange exchange(
+      Long orderId,
+      ExchangeReason reason,
+      Money returnShippingFee,
+      List<ExchangeLineItem> exchangeLineItem
+  ) {
+    return exchange(
+        null,
+        orderId,
+        reason,
+        returnShippingFee,
+        exchangeLineItem
+    );
+  }
+
+  public static Exchange exchange(
       Long id,
       Long orderId,
       ExchangeReason reason,
