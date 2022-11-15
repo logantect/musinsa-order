@@ -54,6 +54,21 @@ public class Fixtures {
   }
 
   public static Refund refund(
+      Long orderId,
+      RefundReason reason,
+      Money returnShippingFee,
+      List<RefundLineItem> refundLineItems
+  ) {
+    return refund(
+        null,
+        orderId,
+        reason,
+        returnShippingFee,
+        refundLineItems
+    );
+  }
+
+  public static Refund refund(
       Long id,
       Long orderId,
       RefundReason reason,

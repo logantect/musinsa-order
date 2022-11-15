@@ -31,8 +31,8 @@ class RefundTest {
     assertThat(actual.reason()).isEqualTo(
         new RefundReason(RefundReasonType.CHANGE_OF_MIND, "상품 색상이 마음에 안들어요"));
     assertThat(actual.returnShippingFee()).isEqualTo(Money.from(5_000L));
-    assertThat(actual.refundLineItems()).hasSize(2);
-    assertThat(actual.refundLineItems()).extracting("orderLineItemId")
+    assertThat(actual.getRefundLineItems()).hasSize(2);
+    assertThat(actual.getRefundLineItems()).extracting("orderLineItemId")
         .contains(1L, 2L);
   }
 

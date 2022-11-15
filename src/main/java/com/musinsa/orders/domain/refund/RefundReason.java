@@ -43,4 +43,11 @@ public class RefundReason {
     this.detailedReason = detailedReason;
   }
 
+  public RefundReasonType getReason() {
+    return reason;
+  }
+
+  public String getDetailedReason() {
+    return detailedReason;
+  }
 }
