@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("환불 객체는")
 class RefundTest {
 
   @Test

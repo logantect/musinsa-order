@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
+@DisplayName("Product 객체는")
 class ProductNameTest {
 
   @DisplayName("상품명을 생성할 수 있다")

@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
+@DisplayName("배송비 정책은")
 class ShippingFeePolicyTest {
 
   private ShippingFeePolicy shippingFeePolicy;
