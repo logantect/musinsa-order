@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("주문 객체는")
 class OrderTest {
 
   private ShippingFeePolicy shippingFeePolicy;
@@ -20,7 +21,7 @@ class OrderTest {
   }
 
   @Test
-  @DisplayName("주문생성")
+  @DisplayName("1개 이상의 주문 상품으로 주문을 생성할 수 있다")
   void placeOrder() {
     Order actual = createOrder(1L, List.of(
         createOrderLineItem(1L, "신발A", 15_000L),
