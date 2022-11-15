@@ -19,6 +19,7 @@ public class RefundPolicy {
 
   public Money calculateReturnShippingFee(Order order, List<Long> returnLineItemIds) {
     List<Long> refundedLineItemIds = getRefundedLineItemIds(order.id());
+    validateNotExist(order, returnLineItemIds);
     validateAlreadyRefund(refundedLineItemIds, returnLineItemIds);
 
     boolean freeShippingFee = order.isFreeShippingFee();
@@ -28,6 +29,13 @@ public class RefundPolicy {
       return ROUND_TRIP_SHIPPING_FEE;
     }
     return ShippingFeePolicy.SHIPPING_FEE;
+  }
+
+  private void validateNotExist(Order order, List<Long> returnLineItemIds) {
+    List<OrderLineItem> returnLineItems = order.getOrderLineItems(returnLineItemIds);
+    if (returnLineItems.size() != returnLineItemIds.size()) {
+      throw new IllegalArgumentException("환불할 주문 상품이 존재하지 않습니다.");
+    }
   }
 
   private static void validateAlreadyRefund(List<Long> refundedLineItemIds,
