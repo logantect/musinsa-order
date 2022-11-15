@@ -127,7 +127,7 @@ class OrderRestControllerTest {
     @DisplayName("신발A 상품 교환에 반품비 5,000원을 반환한다")
     void case1() {
       Order savedOrder = orderRepository.save(order);
-      OrderLineItem orderLineItemA = savedOrder.orderLineItems().get(0);
+      OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
       RefundLineItemRequest request = new RefundLineItemRequest(List.of(orderLineItemA.id()));
 
       given().
@@ -146,8 +146,8 @@ class OrderRestControllerTest {
     @DisplayName("신발A 상품 교환 다음 신발B 환불에 반품비 2,500원을 반환한다")
     void case2() {
       Order savedOrder = orderRepository.save(order);
-      OrderLineItem orderLineItemA = savedOrder.orderLineItems().get(0);
-      OrderLineItem orderLineItemB = savedOrder.orderLineItems().get(1);
+      OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
+      OrderLineItem orderLineItemB = savedOrder.getOrderLineItems().get(1);
       RefundLineItemRequest request = new RefundLineItemRequest(List.of(orderLineItemB.id()));
 
       exchangeRepository.save(
@@ -176,9 +176,9 @@ class OrderRestControllerTest {
     @DisplayName("신발B 상품 환불 다음 신발C와 신발A를 한번에 환불에 반품비 2,500원을 반환한다")
     void case3() {
       Order savedOrder = orderRepository.save(order);
-      OrderLineItem orderLineItemA = savedOrder.orderLineItems().get(0);
-      OrderLineItem orderLineItemB = savedOrder.orderLineItems().get(1);
-      OrderLineItem orderLineItemC = savedOrder.orderLineItems().get(2);
+      OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
+      OrderLineItem orderLineItemB = savedOrder.getOrderLineItems().get(1);
+      OrderLineItem orderLineItemC = savedOrder.getOrderLineItems().get(2);
       RefundLineItemRequest request = new RefundLineItemRequest(
           List.of(orderLineItemA.id(), orderLineItemC.id()));
 
@@ -230,7 +230,7 @@ class OrderRestControllerTest {
     @DisplayName("셔츠A 상품 환불에 반품비 2,500원을 반환한다")
     void case1() {
       Order savedOrder = orderRepository.save(order);
-      OrderLineItem orderLineItemA = savedOrder.orderLineItems().get(0);
+      OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
       RefundLineItemRequest request = new RefundLineItemRequest(List.of(orderLineItemA.id()));
 
       given().
@@ -249,9 +249,9 @@ class OrderRestControllerTest {
     @DisplayName("셔츠A 상품 환불 다음 셔츠B와 C를 한번에 환불에 반품비 5,000원을 반환한다")
     void case2() {
       Order savedOrder = orderRepository.save(order);
-      OrderLineItem orderLineItemA = savedOrder.orderLineItems().get(0);
-      OrderLineItem orderLineItemB = savedOrder.orderLineItems().get(1);
-      OrderLineItem orderLineItemC = savedOrder.orderLineItems().get(2);
+      OrderLineItem orderLineItemA = savedOrder.getOrderLineItems().get(0);
+      OrderLineItem orderLineItemB = savedOrder.getOrderLineItems().get(1);
+      OrderLineItem orderLineItemC = savedOrder.getOrderLineItems().get(2);
       RefundLineItemRequest request = new RefundLineItemRequest(
           List.of(orderLineItemB.id(), orderLineItemC.id()));
 

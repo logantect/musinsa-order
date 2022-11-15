@@ -104,11 +104,11 @@ public class Refund {
     return returnShippingFee;
   }
 
-  public List<RefundLineItem> getRefundLineItems() {
-    return refundLineItems.refundLineItems();
-  }
-
   public RefundLineItems refundLineItems() {
     return refundLineItems;
+  }
+
+  public List<RefundLineItem> getRefundLineItems() {
+    return refundLineItems.refundLineItems();
   }
 }

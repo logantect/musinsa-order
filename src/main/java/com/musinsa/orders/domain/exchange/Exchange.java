@@ -48,9 +48,8 @@ public class Exchange {
   @AttributeOverride(name = "amount", column = @Column(name = "return_shipping_fee", nullable = false))
   private Money returnShippingFee;
 
-  @ElementCollection
-  @CollectionTable(name = "exchange_line_item", joinColumns = @JoinColumn(name = "exchange_id"))
-  private List<ExchangeLineItem> exchangeLineItems = new ArrayList<>();
+  @Embedded
+  private ExchangeLineItems exchangeLineItems;
 
   public Exchange(
       Long orderId,
@@ -85,7 +84,7 @@ public class Exchange {
     this.status = ExchangeStatus.ACCEPTED;
     this.reason = reason;
     this.returnShippingFee = returnShippingFee;
-    this.exchangeLineItems = exchangeLineItems;
+    this.exchangeLineItems = new ExchangeLineItems(exchangeLineItems);
   }
 
   public Long id() {
@@ -108,7 +107,11 @@ public class Exchange {
     return returnShippingFee;
   }
 
-  public List<ExchangeLineItem> exchangeLineItems() {
-    return Collections.unmodifiableList(exchangeLineItems);
+  public ExchangeLineItems exchangeLineItems() {
+    return exchangeLineItems;
+  }
+
+  public List<ExchangeLineItem> getExchangeLineItems() {
+    return Collections.unmodifiableList(exchangeLineItems.exchangeLineItems());
   }
 }
