@@ -25,6 +25,7 @@ import com.musinsa.orders.domain.refund.RefundReason.RefundReasonType;
 import com.musinsa.orders.domain.refund.RefundRepository;
 import io.restassured.RestAssured;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -56,6 +57,13 @@ class OrderRestControllerTest {
   @BeforeEach
   void setUp() {
     RestAssured.port = port;
+  }
+
+  @AfterEach
+  void tearDown() {
+    refundRepository.deleteAll();
+    exchangeRepository.deleteAll();
+    orderRepository.deleteAll();
   }
 
   @Nested
