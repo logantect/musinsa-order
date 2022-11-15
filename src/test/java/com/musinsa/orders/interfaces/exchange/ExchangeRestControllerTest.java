@@ -19,6 +19,7 @@ import com.musinsa.orders.domain.exchange.ExchangeReason.ExchangeReasonType;
 import com.musinsa.orders.domain.exchange.ExchangeRepository;
 import io.restassured.RestAssured;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -47,6 +48,12 @@ class ExchangeRestControllerTest {
   @BeforeEach
   void setUp() {
     RestAssured.port = port;
+  }
+
+  @AfterEach
+  void tearDown() {
+    orderRepository.deleteAll();
+    exchangeRepository.deleteAll();
   }
 
   @Nested
